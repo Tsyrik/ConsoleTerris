@@ -57,33 +57,21 @@ void PlayField::moveTetromino()
 	{
 		for (int j = FieldSize::WIDTH; j >= 0; --j)
 		{
-			if (m_playFieldBool[i - 1][j] == 7 && m_playFieldBool[i - 1][j] == 2)
+			if (m_playFieldBool[i][j] == 0)
 			{
-				staticTetromino();
-			}
-			if (m_playFieldBool[i][j] == 5)
-			{
-				if (m_playFieldBool[i + 1][j] == 0)
+				if (m_playFieldBool[i - 1][j] == 5 && i-1>=0)
 				{
-					m_playFieldBool[i + 1][j] = 8;
-				}
-				if (m_playFieldBool[i - 1][j] == 0 || (i - 1 < 0))
-				{
-					m_playFieldBool[i][j] = 9;
+					m_playFieldBool[i][j] = 8;
 				}
 			}
-		}
-	}
-
-	for (int i = 0; i < FieldSize::HEIGHT; ++i)
-	{
-		for (int j = 0; j < FieldSize::WIDTH; ++j)
-		{
-			if (m_playFieldBool[i][j] == 8)
+			if (m_playFieldBool[i][j] == 7 || m_playFieldBool[i][j] == 2)
 			{
-				m_playFieldBool[i][j] = 5;
+				if (m_playFieldBool[i - 1][j] == 5)
+				{
+					staticTetromino();
+				}
 			}
-			if (m_playFieldBool[i][j] == 9)
+			if (m_playFieldBool[i][j] == 5 && (m_playFieldBool[i - 1][j] == 0 || i - 1 < 0))
 			{
 				m_playFieldBool[i][j] = 0;
 			}
@@ -91,45 +79,37 @@ void PlayField::moveTetromino()
 	}
 
 
-
-
 	for (int i = FieldSize::HEIGHT; i >= 0; --i)
 	{
 		for (int j = FieldSize::WIDTH; j >= 0; --j)
 		{
-
-			if (m_playFieldBool[i][j] == 0)
+			if (m_playFieldBool[i][j] == 8)
 			{
-				if (m_playFieldBool[i - 1][j] == 5)
-				{
-					m_playFieldBool[i][j] = 5;
-				}
+				m_playFieldBool[i][j] = 5;
 			}
-			if (m_playFieldBool[i][j] == 7 || m_playFieldBool[i][j] == 2)
-			{
-				if (m_playFieldBool[i - 1][j] == 5)
-				{
-					m_playFieldBool[i][j] = 7;
-				}
-			}
-
 		}
 	}
 }
 
-		void PlayField::staticTetromino()
-		{
-			for (int i = 0; i < FieldSize::HEIGHT; ++i)
-			{
-				for (int j = 0; j < FieldSize::WIDTH; ++j)
-				{
 
-					if (m_playFieldBool[i][j] == 5 || m_playFieldBool[i][j] == 8)
-					{
-						m_playFieldBool[i][j] = 7;
-					}
-				}
+void PlayField::staticTetromino()
+{
+	for (int i = 0; i < FieldSize::HEIGHT; ++i)
+	{
+		for (int j = 0; j < FieldSize::WIDTH; ++j)
+		{
+
+			if (m_playFieldBool[i][j] == 5)
+			{
+				m_playFieldBool[i][j] = 7;
+			}
+			if (m_playFieldBool[i][j] == 8)
+			{
+				m_playFieldBool[i][j] = 0;
 			}
 		}
+	}
+}
+
 
 
