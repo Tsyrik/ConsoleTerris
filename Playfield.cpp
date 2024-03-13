@@ -74,18 +74,13 @@ void PlayField::moveTetromino()
 			if (m_playFieldBool[i][j] == 5 && (m_playFieldBool[i - 1][j] == 0 || i - 1 < 0))
 			{
 				m_playFieldBool[i][j] = 0;
-			}
-		}
-	}
 
-
-	for (int i = FieldSize::HEIGHT; i >= 0; --i)
-	{
-		for (int j = FieldSize::WIDTH; j >= 0; --j)
-		{
-			if (m_playFieldBool[i][j] == 8)
-			{
-				m_playFieldBool[i][j] = 5;
+				int offset = i;
+				while (m_playFieldBool[offset][j] != 8)
+				{
+					++offset;
+				}
+				m_playFieldBool[offset][j] = 5;
 			}
 		}
 	}
