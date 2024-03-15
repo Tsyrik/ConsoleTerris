@@ -1,7 +1,9 @@
 #pragma once
 #include "Enums.h"
 #include <string>
-
+#include <windows.h>
+#include <memory>
+#include <thread>
 
 class PlayField
 {
@@ -10,8 +12,13 @@ public:
 
 	void Draw();
 	void Initialization();
-	void moveTetromino();
+	void gameStep();
+	void moveLeft();
+	void moveRight();
+	void Rotate();
 	void staticTetromino();
+	void GetInput();
+	void Join();
 
 private:
 
@@ -47,8 +54,10 @@ private:
 
 	std::string m_canvas;
 
+	HANDLE m_cursorHandle;
+	COORD m_cursorInitPosition;
 
-
+	std::unique_ptr<std::thread> m_inputSignals;
 
 	bool m_gameOver;
 	int m_playfield[FieldSize::WIDTH][FieldSize::HEIGHT];
